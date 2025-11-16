@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">HOLA</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	const [inputValue, setInputValue] = useState("")
+	const [tareas, setTareas] = useState([])
+
+	function newTask(e) {
+		e.preventDefault()
+		setTareas([...tareas, inputValue])
+		setInputValue("")
+	}
+
+
+	
+	return (
+		<div>
+			<h1>MIS QUE HACERES</h1>
+			<form onSubmit={(e) => newTask(e)}>
+				<input placeholder="QUE TENGO QUE HACER" value={inputValue} onChange={(e) => setInputValue(e.target.value)}>
+				</input>
+			</form>
+			<ul>
+				<li>Sacar al perro<i className="fa-solid fa-trash-can"></i></li>
+				<li>Hacer la comida<i className="fa-solid fa-trash-can"></i></li>
+				<li>Tender la ropa<i className="fa-solid fa-trash-can"></i></li>
+				{tareas.map((tarea) => (
+					<li>{tarea} <i className="fa-solid fa-trash-can"></i></li>
+				))}
+			</ul>
 		</div>
 	);
 };
